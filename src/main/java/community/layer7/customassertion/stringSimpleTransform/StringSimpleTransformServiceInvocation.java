@@ -15,9 +15,6 @@ import java.util.logging.Logger;
  */
 public class StringSimpleTransformServiceInvocation extends ServiceInvocation {
     private static final Logger logger = Logger.getLogger(StringSimpleTransformServiceInvocation.class.getName());
-    private StringSimpleTransformCustomAssertion stringSimpleTransformCustomAssertion;
-    private String input;
-    private String transformationType;
 
     @Override
     public CustomAssertionStatus checkRequest(CustomPolicyContext customPolicyContext) {
@@ -27,7 +24,9 @@ public class StringSimpleTransformServiceInvocation extends ServiceInvocation {
                     (customAssertion == null ? "null" : customAssertion.getClass().getName())));
         	return CustomAssertionStatus.FAILED;        		    		
     	}
-        stringSimpleTransformCustomAssertion = (StringSimpleTransformCustomAssertion)customAssertion;
+        String input;
+        String transformationType;
+        StringSimpleTransformCustomAssertion stringSimpleTransformCustomAssertion = (StringSimpleTransformCustomAssertion)customAssertion;
         if (stringSimpleTransformCustomAssertion.getInputVariable() != null) {
         	Object inputAsObject = customPolicyContext.getVariable(stringSimpleTransformCustomAssertion.getInputVariable());
         	if(inputAsObject == null) { //such as using undefined variable or InputVariable is empty
