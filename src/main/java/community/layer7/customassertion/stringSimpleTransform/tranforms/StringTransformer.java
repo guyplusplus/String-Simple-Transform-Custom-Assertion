@@ -1,5 +1,6 @@
 package community.layer7.customassertion.stringSimpleTransform.tranforms;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 
 import javax.xml.bind.DatatypeConverter;
@@ -37,6 +38,7 @@ public class StringTransformer {
 	static final String DECODE_XML_STRING = "decodeXMLString";
 	
 	static final String TOOLTIP_TEST_STRING = " aB\t&\\\u65e5 \u0e01 1";
+	private static final String TOOLTIP_TEST_STRING_DESC = "space, tab, nichi in JP, kokai in TH";
 
 	private static final StringTransformTypeWithLabel[] SUPPORTED_TRANSFORMS_WITH_LABEL_ARRAY = new StringTransformTypeWithLabel[] {
 		new StringTransformTypeWithLabel(TRIM, "Trim spaces"),
@@ -74,7 +76,7 @@ public class StringTransformer {
 			for(StringTransformTypeWithLabel stringTransformTypeWithLabel:SUPPORTED_TRANSFORMS_WITH_LABEL_ARRAY)
 				SUPPORTED_TRANSFORMS_WITH_LABEL_ARRAY_HASHTABLE.put(stringTransformTypeWithLabel.getTransformType(), stringTransformTypeWithLabel);				
 			//each entry requires ENCODE_AS_XML_STRING since it is a HTML based tooltip
-			StringBuilder sb = new StringBuilder("<html>The string '").append(TOOLTIP_TEST_STRING).append("' (space, tab, nichi in JP, kokai in TH) gets transformed as:<ul>");
+			StringBuilder sb = new StringBuilder("<html>The string '").append(TOOLTIP_TEST_STRING).append("' (" + TOOLTIP_TEST_STRING_DESC + ") gets transformed as:<ul>");
 			for(String supportedTransform:SUPPORTED_TRANSFORMS_IN_COMBOX_TOOLTIP) {
 				sb.append("<li>").append(getSupportedTransformsWithLabel(supportedTransform).getLabel()).append(": '");
 				sb.append(transformString(ENCODE_AS_XML10_STRING, transformString(supportedTransform, TOOLTIP_TEST_STRING)));
@@ -103,21 +105,21 @@ public class StringTransformer {
 		case TO_UPPER_CASE:
 			return inputString.toUpperCase();
 		case TO_UTF8_HEX:
-			return DatatypeConverter.printHexBinary(inputString.getBytes("UTF-8"));
+			return DatatypeConverter.printHexBinary(inputString.getBytes(StandardCharsets.UTF_8));
 		case FROM_UTF8_HEX:
-			return new String(DatatypeConverter.parseHexBinary(inputString), "UTF-8");
+			return new String(DatatypeConverter.parseHexBinary(inputString), StandardCharsets.UTF_8);
 		case TO_UTF16_HEX:
-			return DatatypeConverter.printHexBinary(inputString.getBytes("UTF-16"));
+			return DatatypeConverter.printHexBinary(inputString.getBytes(StandardCharsets.UTF_16));
 		case FROM_UTF16_HEX:
-			return new String(DatatypeConverter.parseHexBinary(inputString), "UTF-16");
+			return new String(DatatypeConverter.parseHexBinary(inputString), StandardCharsets.UTF_16);
 		case TO_UTF16LE_HEX:
-			return DatatypeConverter.printHexBinary(inputString.getBytes("UTF-16LE"));
+			return DatatypeConverter.printHexBinary(inputString.getBytes(StandardCharsets.UTF_16LE));
 		case FROM_UTF16LE_HEX:
-			return new String(DatatypeConverter.parseHexBinary(inputString), "UTF-16LE");
+			return new String(DatatypeConverter.parseHexBinary(inputString), StandardCharsets.UTF_16LE);
 		case TO_UTF16BE_HEX:
-			return DatatypeConverter.printHexBinary(inputString.getBytes("UTF-16BE"));
+			return DatatypeConverter.printHexBinary(inputString.getBytes(StandardCharsets.UTF_16BE));
 		case FROM_UTF16BE_HEX:
-			return new String(DatatypeConverter.parseHexBinary(inputString), "UTF-16BE");
+			return new String(DatatypeConverter.parseHexBinary(inputString), StandardCharsets.UTF_16BE);
 		case ENCODE_AS_JSON_STRING:
 			//return StringEscapeUtils.escapeJson(inputString);
 			return JSONUtil.encodeJSON(inputString);
