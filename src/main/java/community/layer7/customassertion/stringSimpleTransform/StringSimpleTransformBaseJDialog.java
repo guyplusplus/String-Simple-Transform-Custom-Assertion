@@ -65,7 +65,7 @@ public class StringSimpleTransformBaseJDialog extends JDialog {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setResizable(false);
-		setTitle("String Simple Transform Properties - v1.1 (20220723)");
+		setTitle("String Simple Transform Properties - v1.2 (20221023)");
 		setBounds(100, 100, 400, 213);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
